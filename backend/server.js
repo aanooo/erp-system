@@ -8,13 +8,22 @@ const app = express();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 5001;
 #allow all urls
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    return res.sendStatus(204); // No Content for OPTIONS
+  }
+  next();
+});
+
+// Set CORS headers for all requests
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(204);
-  }
+  res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
 
