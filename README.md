@@ -222,7 +222,7 @@ This project is for educational and portfolio purposes.
 
 ## Author
 
-Your Name - Portfolio Project
+Anandhi Raghuraman
 
 ---
 
